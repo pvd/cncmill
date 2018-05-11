@@ -1,0 +1,24 @@
+T1 P1 D6 ;flat (wood) 
+T2 P2 D10 ;flat (wood) 
+T3 P3 D16 ;flat (wood) 
+T4 P4 D16 ;chamfer (wood) 
+T5 P5 D14.3 ;dovetail (wood) 
+T6 P6 D12 ;ball (wood) 
+T21 P21 D1 ;flat (hbm) 
+T22 P22 D2 ;flat (hbm) 
+T23 P23 D2.5 ;flat (chinees) 
+T24 P24 D3 ;flat (chinees) 
+T25 P25 D4 ;flat (chinees) 
+T26 P26 D4 ;flat (hbm) 
+T27 P27 D5 ;flat (chinees) 
+T28 P28 D6 ;flat (chinees) 
+T29 P29 D6 ;flat (europa) 
+T30 P30 D8 ;flat (hbm) 
+T44 P44 D4.8 ;center drill 
+T45 P45 D8 ;center drill 
+T10 P10 D1 ;downcut 
+T11 P11 D2 ;downcut 
+T12 P12 D3 ;downcut 
+T13 P13 D3 ;carbide ball nose 
+T31 P31 D6 ;flat (hbm carbide) 
+T32 P32 D10 ;falt (hbm carbide) 
