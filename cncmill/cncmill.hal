@@ -16,6 +16,7 @@ addf stepgen.update-freq servo-thread
 net dout-00 <= motion.digital-out-00
 net dout-01 <= motion.digital-out-01
 net dout-02 <= motion.digital-out-02
+net probe-in => motion.probe-input
 
 setp parport.0.pin-02-out-invert 1
 net xstep           => parport.0.pin-02-out
@@ -36,6 +37,7 @@ net all-limit       <= parport.0.pin-13-in
 net dout-00         => parport.0.pin-14-out
 net dout-01         => parport.0.pin-16-out
 net dout-02         => parport.0.pin-17-out
+net probe-in        <= parport.0.pin-15-in-not
 
 setp stepgen.0.position-scale [AXIS_0]SCALE
 setp stepgen.0.steplen 1

@@ -55,8 +55,8 @@ h.ready()
 
 try:
   while 1:
-    # repeat this loop every 100ms
-    time.sleep(0.1)
+    # repeat this loop every 50ms
+    time.sleep(0.05)
 
     # Prepare the led status value
     ledStatus = h['led_power'];
