@@ -1,6 +1,16 @@
 loadusr -W ./ctrlpanel.py
-loadrt toggle names=power_toggle
-loadrt not names=power_invert
+
+newinst toggle   power_toggle
+newinst not      power_invert
+newinst flipflop jog_sel_ff
+newinst mux2     jog_sel_mux
+newinst not      jog_sel_invert
+
+addf power_toggle         servo-thread
+addf power_invert         servo-thread
+addf jog_sel_ff.funct     servo-thread
+addf jog_sel_mux.funct    servo-thread
+addf jog_sel_invert.funct servo-thread
 
 # control panel button signals
 net sig_mpgXcount <= ctrlpanel.mpgXcount
@@ -20,21 +30,6 @@ net sig_feedMin <= ctrlpanel.feedMin
 net sig_jogSpeed1 <= ctrlpanel.jogSpeed1
 net sig_jogSpeed2 <= ctrlpanel.jogSpeed2
 
-# control panel leds signals
-#net sig_led_power <= ctrlpanel.led_power
-net sig_led_home <= ctrlpanel.led_home
-net sig_led_zeroAll <= ctrlpanel.led_zeroAll
-net sig_led_zeroX <= ctrlpanel.led_zeroX
-net sig_led_zeroY <= ctrlpanel.led_zeroY
-net sig_led_zeroZ <= ctrlpanel.led_zeroZ
-net sig_led_start <= ctrlpanel.led_start
-net sig_led_stop <= ctrlpanel.led_stop
-net sig_led_laser <= ctrlpanel.led_laser
-net sig_led_feedPlus <= ctrlpanel.led_feedPlus
-net sig_led_feedMin <= ctrlpanel.led_feedMin
-net sig_led_jogSpeed1 <= ctrlpanel.led_jogSpeed1
-net sig_led_jogSpeed2 <= ctrlpanel.led_jogSpeed2
-
 # Buttons
 net sig_power_btn power_toggle.in
 net sig_power_on power_toggle.out halui.machine.on
@@ -52,25 +47,35 @@ net sig_stop halui.program.stop
 net sig_feedPlus halui.feed-override.increase
 net sig_feedMin halui.feed-override.decrease
 net estop-ext ctrlpanel.estop
-
-# Leds
-net sig_machine_is_on halui.machine.is-on ctrlpanel.led_power
+net sig_jogSpeed1 jog_sel_ff.reset
+net sig_jogSpeed2 jog_sel_ff.set
 
 # MPGs
+setp jog_sel_mux.in0 0.5 
+setp jog_sel_mux.in1 0.01
+
+net sig_jog_sel jog_sel_ff.out jog_sel_mux.sel
+net sig_jog_sel jog_sel_invert.in
+net sig_jog_sel_inv jog_sel_invert.out
+net sig_jog_scale jog_sel_mux.out
+
 setp axis.0.jog-vel-mode 0
-setp axis.0.jog-scale 0.5
+net sig_jog_scale axis.0.jog-scale
 net sig_mpgXcount => axis.0.jog-counts
 setp axis.0.jog-enable 1
 
 setp axis.1.jog-vel-mode 0
-setp axis.1.jog-scale 0.5
+net sig_jog_scale axis.1.jog-scale
 net sig_mpgYcount => axis.1.jog-counts
 setp axis.1.jog-enable 1
 
 setp axis.2.jog-vel-mode 0
-setp axis.2.jog-scale 0.5
+net sig_jog_scale axis.2.jog-scale
 net sig_mpgZcount => axis.2.jog-counts
 setp axis.2.jog-enable 1
 
-addf power_toggle servo-thread
-addf power_invert servo-thread
+# Leds
+net sig_machine_is_on halui.machine.is-on ctrlpanel.led_power
+net sig_jog_sel_inv ctrlpanel.led_jogSpeed1
+net sig_jog_sel ctrlpanel.led_jogSpeed2
+
