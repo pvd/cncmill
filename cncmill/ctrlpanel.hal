@@ -57,17 +57,17 @@ net estop-ext ctrlpanel.estop
 net sig_machine_is_on halui.machine.is-on ctrlpanel.led_power
 
 # MPGs
-setp axis.0.jog-vel-mode 1
+setp axis.0.jog-vel-mode 0
 setp axis.0.jog-scale 0.5
 net sig_mpgXcount => axis.0.jog-counts
 setp axis.0.jog-enable 1
 
-setp axis.1.jog-vel-mode 1
+setp axis.1.jog-vel-mode 0
 setp axis.1.jog-scale 0.5
 net sig_mpgYcount => axis.1.jog-counts
 setp axis.1.jog-enable 1
 
-setp axis.2.jog-vel-mode 1
+setp axis.2.jog-vel-mode 0
 setp axis.2.jog-scale 0.5
 net sig_mpgZcount => axis.2.jog-counts
 setp axis.2.jog-enable 1
