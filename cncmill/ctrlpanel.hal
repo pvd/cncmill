@@ -5,12 +5,14 @@ newinst not      power_invert
 newinst flipflop jog_sel_ff
 newinst mux2     jog_sel_mux
 newinst not      jog_sel_invert
+newinst andn     all_home pincount=3
 
 addf power_toggle         servo-thread
 addf power_invert         servo-thread
 addf jog_sel_ff.funct     servo-thread
 addf jog_sel_mux.funct    servo-thread
 addf jog_sel_invert.funct servo-thread
+addf all_home.funct       servo-thread
 
 # control panel button signals
 net sig_mpgXcount <= ctrlpanel.mpgXcount
@@ -75,7 +77,17 @@ net sig_mpgZcount => axis.2.jog-counts
 setp axis.2.jog-enable 1
 
 # Leds
+net sig_x_home axis.0.homed all_home.in0
+net sig_y_home axis.1.homed all_home.in1
+net sig_z_home axis.2.homed all_home.in2
+
 net sig_machine_is_on halui.machine.is-on ctrlpanel.led_power
+net sig_all_homed all_home.out ctrlpanel.led_home
+
+net sig_is_started halui.program.is-running ctrlpanel.led_start
+net sig_is_stopped halui.program.is-idle ctrlpanel.led_stop
+
+
 net sig_jog_sel_inv ctrlpanel.led_jogSpeed1
 net sig_jog_sel ctrlpanel.led_jogSpeed2
 

@@ -25,4 +25,3 @@ T32 P32 D10 ;falt (hbm carbide)
 T15 P15 D0.1 ;engrave 
 T7 P7 D2 ;straight flute 
 T8 P8 D4 ;straight flute 
-T16 P16 D0.1 ;engrave 

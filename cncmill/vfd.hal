@@ -8,3 +8,7 @@ net spindle-reverse motion.spindle-reverse => spindle-vfd.spindle-reverse
 net spindle-speed-cmd  motion.spindle-speed-out-abs => spindle-vfd.speed-command
 net spindle-on motion.spindle-on => spindle-vfd.spindle-on
 net spindle-at-speed motion.spindle-at-speed => spindle-vfd.spindle-at-speed
+
+# to get the spindle speed override buttons to work,
+# connect a dummy signal to the spindle out 
+net dummy_override motion.spindle-speed-out-rps-abs
