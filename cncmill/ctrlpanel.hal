@@ -87,7 +87,6 @@ net sig_all_homed all_home.out ctrlpanel.led_home
 net sig_is_started halui.program.is-running ctrlpanel.led_start
 net sig_is_stopped halui.program.is-idle ctrlpanel.led_stop
 
-
 net sig_jog_sel_inv ctrlpanel.led_jogSpeed1
 net sig_jog_sel ctrlpanel.led_jogSpeed2
 

@@ -3,7 +3,6 @@
     <labelframe text="Huanyang VFD">
         <font>("Helvetica",12)</font>
         <table>
-
             <tablerow/>
             <tablespan columns="2" />
             <tablesticky sticky="nsew" />
@@ -88,10 +87,17 @@
     </labelframe>
 
     <labelframe text="Auto Touch Off">
-      <font>("Helvetica",12)</font>
-      <button>
-        <text>"Z-Axis"</text>
-        <halpin>"o100"</halpin>
-      </button>
+        <font>("Helvetica",12)</font>
+        <rectled>
+          <width>200</width>
+          <halpin>"probe-led"</halpin>
+          <on_color>"green"</on_color>
+          <off_color>"red"</off_color>
+        </rectled>
+
+        <button>
+          <text>"Z-Axis"</text>
+          <halpin>"auto-touch-z"</halpin>
+        </button>
     </labelframe>
 </pyvcp>
