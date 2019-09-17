@@ -10,4 +10,3 @@ net pyvcp-modbus-ok spindle-vfd.hycomm-ok => pyvcp.hycomm-ok
 net pyvcp-spindle-current spindle-vfd.OutA => pyvcp.spindle-current 
 
 net probe-in => pyvcp.probe-led
-net pyvcp-auto-touch-z halui.mdi-command-04 <= pyvcp.auto-touch-z

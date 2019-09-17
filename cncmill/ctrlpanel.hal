@@ -46,6 +46,7 @@ net sig_zeroZ halui.mdi-command-03
 net sig_start halui.mode.auto 
 net sig_start halui.program.run
 net sig_stop halui.program.stop
+#net sig_laser dout-00
 net sig_feedPlus halui.feed-override.increase
 net sig_feedMin halui.feed-override.decrease
 net estop-ext ctrlpanel.estop

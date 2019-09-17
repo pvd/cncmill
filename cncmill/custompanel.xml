@@ -94,10 +94,5 @@
           <on_color>"green"</on_color>
           <off_color>"red"</off_color>
         </rectled>
-
-        <button>
-          <text>"Z-Axis"</text>
-          <halpin>"auto-touch-z"</halpin>
-        </button>
     </labelframe>
 </pyvcp>
