@@ -1,0 +1,13 @@
+<pre>
+o<touch_z> sub
+( Set the current position to 0 so the next move will de down )
+G10 L20 P0 Z0
+( Probe to Z-10 at a low feed )
+G38.2 Z-10 f25
+( Set z0 to the point where it triggered )
+( Ask the user of a offset )
+G10 L20 P0 Z[#<_useroffset> + 11]
+( Go to Z0 home )
+G53 G0 Z0 
+o<touch_z> endsub
+</pre>

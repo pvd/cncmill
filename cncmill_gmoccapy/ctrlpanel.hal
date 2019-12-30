@@ -1,0 +1,93 @@
+loadusr -W ./ctrlpanel.py
+
+newinst toggle   power_toggle
+newinst not      power_invert
+newinst flipflop jog_sel_ff
+newinst mux2     jog_sel_mux
+newinst not      jog_sel_invert
+newinst andn     all_home pincount=3
+
+addf power_toggle         servo-thread
+addf power_invert         servo-thread
+addf jog_sel_ff.funct     servo-thread
+addf jog_sel_mux.funct    servo-thread
+addf jog_sel_invert.funct servo-thread
+addf all_home.funct       servo-thread
+
+# control panel button signals
+net sig_mpgXcount <= ctrlpanel.mpgXcount
+net sig_mpgYcount <= ctrlpanel.mpgYcount
+net sig_mpgZcount <= ctrlpanel.mpgZcount
+net sig_power_btn <= ctrlpanel.power
+net sig_home <= ctrlpanel.home
+net sig_zeroAll <= ctrlpanel.zeroAll
+net sig_zeroX <= ctrlpanel.zeroX
+net sig_zeroY <= ctrlpanel.zeroY
+net sig_zeroZ <= ctrlpanel.zeroZ
+net sig_start <= ctrlpanel.start
+net sig_stop <= ctrlpanel.stop
+net sig_laser <= ctrlpanel.laser
+net sig_feedPlus <= ctrlpanel.feedPlus
+net sig_feedMin <= ctrlpanel.feedMin
+net sig_jogSpeed1 <= ctrlpanel.jogSpeed1
+net sig_jogSpeed2 <= ctrlpanel.jogSpeed2
+
+# Buttons
+net sig_power_btn power_toggle.in
+net sig_power_on power_toggle.out halui.machine.on
+net sig_power_on power_invert.in
+net sig_power_off power_invert.out halui.machine.off
+
+net sig_home halui.home-all
+net sig_zeroAll halui.mdi-command-00
+net sig_zeroX halui.mdi-command-01
+net sig_zeroY halui.mdi-command-02
+net sig_zeroZ halui.mdi-command-03
+net sig_start halui.mode.auto 
+net sig_start halui.program.run
+net sig_stop halui.program.stop
+#net sig_laser dout-00
+net sig_feedPlus halui.feed-override.increase
+net sig_feedMin halui.feed-override.decrease
+net estop-ext ctrlpanel.estop
+net sig_jogSpeed1 jog_sel_ff.reset
+net sig_jogSpeed2 jog_sel_ff.set
+
+# MPGs
+setp jog_sel_mux.in0 0.5 
+setp jog_sel_mux.in1 0.01
+
+net sig_jog_sel jog_sel_ff.out jog_sel_mux.sel
+net sig_jog_sel jog_sel_invert.in
+net sig_jog_sel_inv jog_sel_invert.out
+net sig_jog_scale jog_sel_mux.out
+
+setp axis.0.jog-vel-mode 0
+net sig_jog_scale axis.0.jog-scale
+net sig_mpgXcount => axis.0.jog-counts
+setp axis.0.jog-enable 1
+
+setp axis.1.jog-vel-mode 0
+net sig_jog_scale axis.1.jog-scale
+net sig_mpgYcount => axis.1.jog-counts
+setp axis.1.jog-enable 1
+
+setp axis.2.jog-vel-mode 0
+net sig_jog_scale axis.2.jog-scale
+net sig_mpgZcount => axis.2.jog-counts
+setp axis.2.jog-enable 1
+
+# Leds
+net sig_x_home axis.0.homed all_home.in0
+net sig_y_home axis.1.homed all_home.in1
+net sig_z_home axis.2.homed all_home.in2
+
+net sig_machine_is_on halui.machine.is-on ctrlpanel.led_power
+net sig_all_homed all_home.out ctrlpanel.led_home
+
+net sig_is_started halui.program.is-running ctrlpanel.led_start
+net sig_is_stopped halui.program.is-idle ctrlpanel.led_stop
+
+net sig_jog_sel_inv ctrlpanel.led_jogSpeed1
+net sig_jog_sel ctrlpanel.led_jogSpeed2
+
